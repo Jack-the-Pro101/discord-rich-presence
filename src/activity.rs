@@ -83,10 +83,16 @@ pub struct Assets<'a> {
     large_text: Option<&'a str>,
 
     #[serde(skip_serializing_if = "Option::is_none")]
+    large_url: Option<&'a str>,
+
+    #[serde(skip_serializing_if = "Option::is_none")]
     small_image: Option<&'a str>,
 
     #[serde(skip_serializing_if = "Option::is_none")]
     small_text: Option<&'a str>,
+
+    #[serde(skip_serializing_if = "Option::is_none")]
+    small_url: Option<&'a str>,
 }
 
 /// A struct representing the secrets used by an
@@ -140,7 +146,7 @@ pub enum StatusDisplayType {
     /// "Listening to Rick Astley"
     State = 1,
     /// "Listening to Never Gonna Give You Up"
-    Details = 2
+    Details = 2,
 }
 
 impl<'a> Activity<'a> {
@@ -311,8 +317,10 @@ impl<'a> Assets<'a> {
         Assets {
             large_image: None,
             large_text: None,
+            large_url: None,
             small_image: None,
             small_text: None,
+            small_url: None,
         }
     }
 
@@ -333,6 +341,13 @@ impl<'a> Assets<'a> {
         self
     }
 
+    /// Sets the link that is opened when clicking on the large
+    /// image
+    pub fn large_url(mut self, large_url: &'a str) -> Self {
+        self.large_url = Some(large_url);
+        self
+    }
+
     /// Sets the name of the art asset to be used as the small
     /// image
     ///
@@ -347,6 +362,13 @@ impl<'a> Assets<'a> {
     /// image
     pub fn small_text(mut self, small_text: &'a str) -> Self {
         self.small_text = Some(small_text);
+        self
+    }
+
+    /// Sets the link that is opened when clicking on the small
+    /// image
+    pub fn small_url(mut self, small_url: &'a str) -> Self {
+        self.small_url = Some(small_url);
         self
     }
 }
